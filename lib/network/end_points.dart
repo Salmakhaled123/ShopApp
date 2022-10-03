@@ -1,0 +1,9 @@
+const  login='login';
+const  home='home';
+const  getCategories= 'categories';
+const  favorite='favorites';
+const  profile='profile';
+const register='register';
+const updateProfile='update-profile';
+const Search='products/search';
+const product_Details='products/1';
