@@ -7,3 +7,4 @@ const register='register';
 const updateProfile='update-profile';
 const Search='products/search';
 const product_Details='products/1';
+const Add_to_Cart='carts';

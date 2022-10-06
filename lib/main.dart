@@ -61,6 +61,7 @@ ShopApp({ this.onBoarding,required this.startWidget,required this.token});
        ..getCategoriesData()
        ..getFavorites()
        ..getUserData()
+       ..getCarts()
 
      ,
        child: BlocConsumer<ShopCubit,ShopCubitStates>(

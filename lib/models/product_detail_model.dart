@@ -10,30 +10,25 @@ class ProductDetails
 }
 class ProductData
 {
-  int ?  id;
-  // dynamic price;
-  // dynamic old_price;
-  // dynamic discount;
-  // String ?image;
- late String name;
-late  String description;
-late List<String>images=[];
+  int ? id;
+  dynamic price;
+  dynamic old_price;
+  dynamic discount;
+  String ?image;
+  String? name;
+  String? description;
+ List<String>images=[];
   ProductData.fromJson(Map<String,dynamic>json)
   {
     id=json['id'];
-    // price=json['price'];
-    // old_price=json['old_price'];
-    // discount=json['discount'];
-    // image=json['image'];
+    price=json['price'];
+    old_price=json['old_price'];
+    discount=json['discount'];
+    image=json['image'];
     name=json['name'];
     description=json['description'];
-    if(json['images']!=null)
-      {
-        json['images'].forEach((element)
-        {
-          images.add(element);
-        });
-      }
+    images = List.castFrom<dynamic,String>(json['images']);
+
 
 
   }

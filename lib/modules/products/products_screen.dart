@@ -6,12 +6,15 @@ import 'package:shop_app/cubit/cubit.dart';
 import 'package:shop_app/cubit/states.dart';
 import 'package:shop_app/models/categories_model.dart';
 import 'package:shop_app/models/home_model.dart';
+import 'package:shop_app/models/product_detail_model.dart';
 import 'package:shop_app/modules/descriptionScreen.dart';
 import 'package:shop_app/network/components/components.dart';
 import 'package:shop_app/styles/colors/colors.dart';
 
 class ProductsScreen extends StatelessWidget
 {
+
+
  ProductsScreen({Key? key}) : super(key: key);
  Widget productsBuilder(HomeModel ? model,CategoriesModel ? CategoryModel,context,) {
 
@@ -74,7 +77,7 @@ class ProductsScreen extends StatelessWidget
              shrinkWrap: true,
              physics: NeverScrollableScrollPhysics(),
              children: List.generate(model.data!.products.length,
-                     (index) => buildGridProduct(model.data!.products[index],context)),
+                     (index) => buildGridProduct(model.data!.products[index],context,)),
            ),
          ),
        ],
@@ -97,6 +100,7 @@ class ProductsScreen extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
+
         var cubit=ShopCubit.get(context);
       return BlocConsumer<ShopCubit,ShopCubitStates>(builder:(context,state)
       {
@@ -119,81 +123,88 @@ class ProductsScreen extends StatelessWidget
       );
 
   }
- Widget buildGridProduct(ProductsModel model,context,)
+ Widget buildGridProduct(model,context)
  {
-   return Container(
-     color: Colors.white,
-     child: Column(
-       crossAxisAlignment: CrossAxisAlignment.start,
-       children: [
-         Stack(alignment: AlignmentDirectional.bottomStart,
-           children: [
-             Image(
-               image: NetworkImage('${model.image}'),
-               width: double.infinity,
-               height: 200,
-             ),
-             if(model.discount!=0)
-               Container(color: Colors.red,padding: EdgeInsets.symmetric(horizontal: 5.0),
 
-                 child: Text(
-                   'DiSCOUNT',
-                   style: TextStyle(color: Colors.white,fontSize:9.0),),
-               )
-           ],
-         ),
-         Padding(
-           padding: const EdgeInsets.all(12.0),
-           child: Column(
+   return GestureDetector(onTap: ()
+   {
+ShopCubit.get(context).showDescription(id:model.productId);
+navigateTo(context, DescriptionScreen());
+   },
+     child: Container(
+       color: Colors.white,
+       child: Column(
+         crossAxisAlignment: CrossAxisAlignment.start,
+         children: [
+           Stack(alignment: AlignmentDirectional.bottomStart,
              children: [
-               Text(
-                 model.name,
-                 maxLines: 2,
-                 overflow: TextOverflow.ellipsis,
+               Image(
+                 image: NetworkImage('${model.image}'),
+                 width: double.infinity,
+                 height: 200,
                ),
-               SizedBox(height: 15.0,),
-               Row(crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                   Text(
-                     '${model.price.round()}',
-                     style: TextStyle(color: defaultColor),
-                   ),
-                   SizedBox(
-                     width: 5.0,
-                   ),
-                   if(model.discount!=0)
-                     Text(
-                       '${model.oldPrice.round()}',
-                       style: TextStyle(
-                         color: Colors.grey,
-                         decoration: TextDecoration.lineThrough,
-                       ),
-                     ),
-                   Spacer(),
-                   CircleAvatar(radius: 20.0,
-                     backgroundColor:
-                     ShopCubit.get(context).favourites[model.productId]! ? defaultColor:Colors.grey,
-                     child: IconButton(
-                         onPressed: ()
-                         {
-                           ShopCubit.get(context).changeFavorites(model.productId);
+               if(model.discount!=0)
+                 Container(color: Colors.red,padding: EdgeInsets.symmetric(horizontal: 5.0),
 
-                         },
-                         color: Colors.white,
-                         alignment: Alignment.topRight,
-
-                         icon: Icon(Icons.favorite_border,
-
-                         )),
-                   )
-
-
-                 ],
-               ),
+                   child: Text(
+                     'DiSCOUNT',
+                     style: TextStyle(color: Colors.white,fontSize:9.0),),
+                 )
              ],
            ),
-         )
-       ],
+           Padding(
+             padding: const EdgeInsets.all(12.0),
+             child: Column(
+               children: [
+                 Text(
+                   model.name,
+                   maxLines: 2,
+                   overflow: TextOverflow.ellipsis,
+                 ),
+                 SizedBox(height: 15.0,),
+                 Row(crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     Text(
+                       '${model.price.round()}',
+                       style: TextStyle(color: defaultColor),
+                     ),
+                     SizedBox(
+                       width: 5.0,
+                     ),
+                     if(model.discount!=0)
+                       Text(
+                         '${model.oldPrice.round()}',
+                         style: TextStyle(
+                           color: Colors.grey,
+                           decoration: TextDecoration.lineThrough,
+                         ),
+                       ),
+                     Spacer(),
+                     CircleAvatar(radius: 20.0,
+                       backgroundColor:
+                       ShopCubit.get(context).favourites[model.productId]! ? defaultColor:Colors.grey,
+                       child: IconButton(
+                           onPressed: ()
+                           {
+                             ShopCubit.get(context).changeFavorites(model.productId);
+
+                           },
+                           color: Colors.white,
+                           alignment: Alignment.topRight,
+
+                           icon: Icon(Icons.favorite_border,
+
+                           )),
+                     )
+
+
+                   ],
+                 ),
+               ],
+             ),
+           )
+         ],
+       ),
      ),
    );}
 

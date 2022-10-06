@@ -21,9 +21,6 @@ class Data {
  // Null ? prevPageUrl;
   int ? to;
   int ? total;
-
-
-
   Data.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null)
@@ -68,8 +65,6 @@ class Product {
   String ?  image;
   String ? name;
   String ? description;
-
-
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     price = json['price'];

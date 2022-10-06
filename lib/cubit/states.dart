@@ -45,3 +45,12 @@ class ShopErrorUpdateUserDataState extends ShopCubitStates{}
 class ShopLoadingDescriptionDataState extends ShopCubitStates{}
 class ShopSuccessDescriptionDataState extends ShopCubitStates{}
 class ShopErrorDescriptionDataState extends ShopCubitStates{}
+
+class ShopLoadingAddToCartState extends ShopCubitStates{}
+class ShopSuccessAddToCartState extends ShopCubitStates{}
+class ShopErrorAddToCartState extends ShopCubitStates{}
+
+
+class ShopLoadingGetCartsState extends ShopCubitStates{}
+class ShopSuccessGetCartsState extends ShopCubitStates{}
+class ShopErrorGetCartsState extends ShopCubitStates{}

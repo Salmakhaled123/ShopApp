@@ -48,9 +48,12 @@ late String  name;
   String ?image;
 late  bool  in_favorites;
   bool ? in_cart;
+  List<String>?images;
+  String ?description;
 //named constructor
 ProductsModel.fromJson(Map<String,dynamic>json)
 {
+  description=json['description'];
   name=json['name'];
 productId=json['id'];
 price=json['price'];
@@ -58,6 +61,7 @@ oldPrice=json['old_price'];
 image=json['image'];
 discount=json['discount'];
 in_favorites=json['in_favorites'];
+images=json['images'].cast<String>();
 }
 
 
